@@ -1,6 +1,6 @@
 {
     "name": "Digit Span",
-    "exp_id": "digit-span",
+    "exp_id": "digit-span-without-revert",
     "url": "https://www.github.com/expfactory-experiments/digit-span",
     "description":"Assessment for digit or numerical memory",
     "instructions": "Respond to the stimuli on the screen",
