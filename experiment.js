@@ -152,6 +152,17 @@ var post_task_block = {
    columns: [60,60]
 };
 
+//Set up pre task name
+var enter_your_name_block = {
+  type: 'survey-text',
+  data: {
+      trial_id: "name"
+  },
+  questions: ['<p class = center-block-text style = "font-size: 20px">Please enter your name</p>'],
+  rows: [15, 15],
+  columns: [60,60]
+};
+
 /* define static blocks */
 var feedback_instruct_text =
   'Welcome to the experiment. This experiment will take less than 10 minutes. Press <strong>enter</strong> to begin.'
@@ -361,6 +372,7 @@ var feedback_block = {
 
 /* create experiment definition array */
 var digit_span_experiment = [];
+digit_span_experiment.push(enter_your_name_block);
 digit_span_experiment.push(instruction_node);
 for (i = 0; i < num_trials ; i++ ) {
 	digit_span_experiment.push(start_test_block)
