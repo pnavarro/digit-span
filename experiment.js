@@ -147,8 +147,7 @@ var post_task_block = {
    data: {
        trial_id: "post task questions"
    },
-   questions: ['<p class = center-block-text style = "font-size: 20px">Please summarize what you were asked to do in this task.</p>',
-              '<p class = center-block-text style = "font-size: 20px">Do you have any comments about this task?</p>'],
+   questions: ['<p class = center-block-text style = "font-size: 20px">Do you have any comments about this task?</p>'],
    rows: [15, 15],
    columns: [60,60]
 };
@@ -370,12 +369,5 @@ for (i = 0; i < num_trials ; i++ ) {
 	digit_span_experiment.push(feedback_block)
 }
 digit_span_experiment.push(attention_node)
-digit_span_experiment.push(start_reverse_block)
-for (i = 0; i < num_trials ; i++ ) {
-	digit_span_experiment.push(start_test_block)
-	digit_span_experiment.push(test_block)
-	digit_span_experiment.push(reverse_response_block)
-	digit_span_experiment.push(feedback_block)
-}
 digit_span_experiment.push(post_task_block)
 digit_span_experiment.push(end_block)
