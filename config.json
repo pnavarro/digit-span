@@ -1,7 +1,7 @@
 {
-    "name": "Digit Span",
-    "exp_id": "digit-span-without-revert",
-    "url": "https://www.github.com/pnavarro/digit-span-without-revert",
+    "name": "Digit Span Forward",
+    "exp_id": "digit-span-forward",
+    "url": "https://www.github.com/pnavarro/digit-span",
     "description":"Assessment for digit or numerical memory",
     "instructions": "Respond to the stimuli on the screen",
     "template":"jspsych",
