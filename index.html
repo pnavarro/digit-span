@@ -26,7 +26,22 @@
 
 
 <script>
+
 $( document ).ready(function() {
+
+    function convertToValidFilename(string) {
+      return (string.replace(/[\/|\\:*?"<>]/g, " "));
+    }
+
+    function saveData(){
+     var all_data = jsPsych.data.dataAsCSV();
+     var name = JSON.parse(jsPsych.data.getDataByTrialIndex(0).responses).Q0
+     var filename_converted = convertToValidFilename(name)
+     var xhr = new XMLHttpRequest();
+     xhr.open('POST', 'write_data.php'); // 'write_data.php' is the path to the php file described above.
+     xhr.setRequestHeader('Content-Type', 'application/json');
+     xhr.send(JSON.stringify({filename: filename_converted, filedata: all_data}));
+    }   
 
     jsPsych.init({
              timeline: digit_span_experiment,
@@ -35,39 +50,8 @@ $( document ).ready(function() {
              on_trial_finish: function(data){
                addID('digit-span')
              },
-
-             on_finish: function(data){
-
-                 // Serialize the data
-                 var promise = new Promise(function(resolve, reject) {
-                     var data = jsPsych.data.dataAsJSON();
-                     resolve(data);
-                 })
-
-                 promise.then(function(data) {
-
-
-                     $.ajax({
-                         type: "POST",
-                         url: '/save',
-                         data: { "data": data },
-                         success: function(){ document.location = "/next" },
-                         dataType: "application/json",
-
-                         // Endpoint not running, local save
-                         error: function(err) {
-
-                             if (err.status == 200){
-                                 document.location = "/next";
-                             } else {
-                                 // If error, assue local save
-                                 jsPsych.data.localSave('digit-span_results.csv', 'csv');
-                             }
-                         }
-                     });
-                 })
-             }
-
+           
+             on_finish: saveData
       });
 });
 </script>

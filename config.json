@@ -1,7 +1,7 @@
 {
     "name": "Digit Span",
     "exp_id": "digit-span-without-revert",
-    "url": "https://www.github.com/expfactory-experiments/digit-span",
+    "url": "https://www.github.com/pnavarro/digit-span-without-revert",
     "description":"Assessment for digit or numerical memory",
     "instructions": "Respond to the stimuli on the screen",
     "template":"jspsych",

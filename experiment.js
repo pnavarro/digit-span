@@ -159,7 +159,7 @@ var enter_your_name_block = {
       trial_id: "name"
   },
   questions: ['<p class = center-block-text style = "font-size: 20px">Please enter your name</p>'],
-  rows: [15, 15],
+  rows: [2, 2],
   columns: [60,60]
 };
 
