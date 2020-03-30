@@ -16,6 +16,22 @@ function evalAttentionChecks() {
   return check_percent
 }
 
+var getWeschlerScore = function(corrects,falses){
+  var hr = {}
+  var weschler_score = 2.5
+  for (index = 3; index < 18; index++) {
+    total = corrects[index] + falses[index]
+    if (total != 0){
+      hr[index] = corrects[index] / total
+    }
+  }
+  for(var key in hr) {
+    weschler_score = weschler_score + hr[key]
+  }
+  return weschler_score;
+
+}
+
 var getInstructFeedback = function() {
   return '<div class = centerbox><p class = center-block-text>' + feedback_instruct_text +
     '</p></div>'
@@ -105,6 +121,8 @@ var error_lim = 3
 var response = []
 setStims()
 var stim_array = getStims()
+var corrects_by_digits = {3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0}
+var falses_by_digits = {3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0,16:0,17:0}
 
 var response_grid =
   '<div class = numbox>' +
@@ -158,7 +176,7 @@ var enter_your_name_block = {
   data: {
       trial_id: "name"
   },
-  questions: ['<p class = center-block-text style = "font-size: 20px">Please enter your name</p>'],
+  questions: ['<p class = center-block-text style = "font-size: 20px">Please enter your first name and last name</p>'],
   rows: [2, 2],
   columns: [60,60]
 };
@@ -295,13 +313,18 @@ var forward_response_block = {
       "condition": "forward"
     })
     var correct = false
+    var weschler_score = 0
       // staircase
     if (arraysEqual(response, curr_seq)) {
+      var times_correct_by_digit = corrects_by_digits[num_digits]
+      corrects_by_digits[num_digits] = times_correct_by_digit + 1
       num_digits += 1
       feedback = '<span style="color:green">Correct!</span>'
       stims = setStims()
       correct = true
     } else {
+      var times_of_falses_by_digit = falses_by_digits[num_digits]
+      falses_by_digits[num_digits] = times_of_falses_by_digit + 1
       errors += 1
       if (num_digits > 1 && errors == 2) {
         num_digits -= 1
@@ -310,8 +333,10 @@ var forward_response_block = {
       feedback = '<span style="color:red">Incorrect</span>'
       stims = setStims()
     }
+    weschler_score = getWeschlerScore(corrects_by_digits,falses_by_digits)
     jsPsych.data.addDataToLastTrial({
-      correct: correct
+      correct: correct,
+      "weschler_score_acumulated": weschler_score
     })
     response = []
   },
